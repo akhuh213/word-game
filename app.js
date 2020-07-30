@@ -224,9 +224,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 letterOptions.removeEventListener('click', secondClicked)
                 event.target.src = allLetters[1].image;
                 event.target.alt = allLetters[1].letter;                
-            }else{
-                
-                       
+            }else{                       
             }
         }
     
@@ -236,19 +234,18 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 
                 givingPoint()
                 document.querySelector("img[alt='blankC']").src = event.target.src            
-                    if(imgNameArray.length>3){
-                        letterOptions.addEventListener('click', fourthClicked)
-                        letterOptions.removeEventListener('click', thirdClicked)
-                        event.target.src = allLetters[2].image;
-                        event.target.alt = allLetters[2].letter;
-                    }else{
-                        letterOptions.style.display = "none"
-                        winningCondition()
-                    }   
-            }else{
                 
-            } 
-            
+                if(imgNameArray.length>3){
+                    letterOptions.addEventListener('click', fourthClicked)
+                    letterOptions.removeEventListener('click', thirdClicked)
+                    event.target.src = allLetters[2].image;
+                    event.target.alt = allLetters[2].letter;
+                }else{
+                    letterOptions.style.display = "none"
+                    winningCondition()
+                }   
+            }else{               
+            }             
         }
         function fourthClicked(event){
             
@@ -256,15 +253,16 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 
                 givingPoint()
                 document.querySelector("img[alt='blankD']").src = event.target.src
-                    if(imgNameArray.length>4){
-                        letterOptions.addEventListener('click', fifthClicked)
-                        letterOptions.removeEventListener('click', fourthClicked)
-                        event.target.src = allLetters[3].image;   
-                        event.target.alt = allLetters[3].letter; 
-                    }else{
-                        letterOptions.style.display = "none"
-                        winningCondition()
-                    }      
+                    
+                if(imgNameArray.length>4){
+                    letterOptions.addEventListener('click', fifthClicked)
+                    letterOptions.removeEventListener('click', fourthClicked)
+                    event.target.src = allLetters[3].image;   
+                    event.target.alt = allLetters[3].letter; 
+                }else{
+                    letterOptions.style.display = "none"
+                    winningCondition()
+                }      
             }else{
                  
             } 
@@ -277,16 +275,16 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 givingPoint()
                 document.querySelector("img[alt='blankE']").src = event.target.src
                     
-                    if(imgNameArray.length>5 ){
-                        letterOptions.addEventListener('click', sixthClicked)
-                        letterOptions.removeEventListener('click', fifthClicked)
-                        event.target.src = allLetters[4].image;
-                        event.target.alt = allLetters[4].letter;
+                if(imgNameArray.length>5 ){
+                    letterOptions.addEventListener('click', sixthClicked)
+                    letterOptions.removeEventListener('click', fifthClicked)
+                    event.target.src = allLetters[4].image;
+                    event.target.alt = allLetters[4].letter;
 
-                    }else{
-                        letterOptions.style.display = "none"
-                        winningCondition()
-                    }      
+                }else{
+                    letterOptions.style.display = "none"
+                    winningCondition()
+                }      
             }else{
             } 
         }
@@ -330,10 +328,13 @@ document.addEventListener('DOMContentLoaded', ()=> {
         //winning condition
         function winningCondition(){
             const winContainer = document.querySelector(".win-message")
+            
             const winImg = document.createElement("img")
             winImg.setAttribute('id','win-img')
+            
             const winTxt = document.createElement("h2")
             winTxt.setAttribute('id','win-txt')
+            
             const resetButton = document.createElement("button")
             resetButton.setAttribute('id','reset-button')
             resetButton.type = resetButton
@@ -342,9 +343,9 @@ document.addEventListener('DOMContentLoaded', ()=> {
             
 
             if (rabbitPoint < lionPoint){
-                winImg.src = "assets/goodJob.png"
+                winImg.src = "assets/goodjob.png"
                 winContainer.appendChild(winImg)
-                winTxt.innerText = "Awsome! You are the Winner, Lion! 🦁   "
+                winTxt.innerText = "Awsome! You are the Winner, Lion! 🦁"
                 winContainer.appendChild(winTxt)
                 winContainer.appendChild(resetButton)
                 rabbit.style.backgroundColor = "yellow"
@@ -352,9 +353,9 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 
                 
             }else if (lionPoint < rabbitPoint){
-                winImg.src = "assets/goodJob.png"
+                winImg.src = "assets/goodjob.png"
                 winContainer.appendChild(winImg)
-                winTxt.innerText = "Great Job! You are the Winner, Rabbit! 🐰   "
+                winTxt.innerText = "Great Job! You are the Winner, Rabbit! 🐰"
                 winContainer.appendChild(winTxt)
                 winContainer.appendChild(resetButton)
                 rabbit.style.backgroundColor = "yellow"
