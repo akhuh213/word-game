@@ -1,0 +1,47 @@
+body {
+    background-color: yellow;
+}
+
+img {
+    width: 250px;
+    height: 250px;
+
+}
+.img-display {
+    display: flex;
+    justify-content: space-between;
+}
+.game-elements {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.letter-options {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    
+}
+#showing-image {
+    display: flex;
+    order: 2;
+    width: 400px;
+    height: 300px;
+}
+
+#star-point {
+    display: flex;
+    order: 1;
+    width: 100px;
+    height: 100px;
+}
+
+#heart-point {
+    display: flex;
+    order: 3;
+    width: 100px;
+    height: 100px;
+}
+
+

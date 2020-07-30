@@ -12,7 +12,7 @@
 // and display who is the winner
 // if it's a tie, display it's a tie 
 
-
+//const charIndex = 0
 
 
 const allWords = [
@@ -66,9 +66,8 @@ const allLetters = [
     },
     {
         letter: "p",
-        image: "letters/letter_P.png"
+        imgae: "letters/letter_P.png"
     },
-  
     {
         letter: "r",
         image: "letters/letter_R.png"
@@ -103,42 +102,36 @@ const blank = [
     {
         name: "blankE",
         image: "blank_400x400.jpg"
-    },
-    {
-        name: "blankF",
-        image: "blank_400x400.jpg"
     }
-
 ]
-const player = ["Rabbit","Lion"]
+const player = ["Elephant","Lion"]
 
 
 const gameElements = document.querySelector(".game-elements")
 const letterOptions = document.querySelector(".letter-options")
 const showingImage = document.querySelector("#showing-image")
 const imgDisplay = document.querySelector(".img-display")
-const rabbitList = document.querySelector("#rabbit-list")
-const lionList = document.querySelector("#lion-list")
-const rabbit = document.querySelector("#rabbit")
-const lion = document.querySelector("#lion")
 
-let currentIndex = Math.floor(Math.random() * allWords.length);
+let currentIndex = 0
 var imgName = allWords[currentIndex].word
 var imgNameArray = imgName.split('')
 
 
 
-    
+
 
 
 function displayImage(){
     
-    const word = allWords[currentIndex]
-    showingImage.src = word.image
-    showingImage.setAttribute('alt',word.word)
+        const word = allWords[currentIndex]
+        console.log(word)
+        showingImage.src = word.image
+        showingImage.setAttribute('alt',word.word)
     
 }
 displayImage()
+
+
 
 function displayLetter(){
 
@@ -154,9 +147,10 @@ for (i=0; i< imgNameArray.length; i++){
             break 
         }
     }
-} 
+}
 }
 displayLetter()
+
 
 
 function displayBlankBox(){
@@ -166,218 +160,148 @@ function displayBlankBox(){
             blankBox.src = currentBox.image
             blankBox.setAttribute('alt',currentBox.name)
             blankBox.setAttribute("id", 'blank-box')
-            gameElements.appendChild(blankBox)                    
+            gameElements.appendChild(blankBox)
+                    
     }
-    
 }
 displayBlankBox()
 
+
+
+
+const starPoint = document.createElement("img")
+starPoint.setAttribute("id",'star-point')
+const heartPoint = document.createElement("img")
+heartPoint.setAttribute("id",'heart-point')
+imgDisplay.appendChild(starPoint)
+imgDisplay.appendChild(heartPoint)
+
+
+
+function givingPoint(){
+
+    if (currentPlayer === player[0]){       
+        starPoint.src = "star.png"
+    }else {
+        heartPoint.src = "heart.png"        
+    }
+}
+
+
+letterOptions.addEventListener("click", switchTurn)
+let gameTurn = 1
+let currentplayer = null;
+    function switchTurn() {
+        
+        if(gameTurn%2 == 0){
+            currentPlayer = player[0]
+            gameTurn ++
+        }else{
+            currentPlayer = player[1]
+            gameTurn++
+        }console.log(currentPlayer)
+        }
+        
+    
+
+
 document.addEventListener('DOMContentLoaded', ()=> {
 
-    letterOptions.addEventListener("click", switchTurn)
-    
-        let gameTurn = 1
-        let currentPlayer = null;
-        
-        function switchTurn() {
-            console.log(gameTurn)
-            if(gameTurn%2 == 0){
-                currentPlayer = player[1]
-                gameTurn++
-                lion.style.backgroundColor = "yellow"
-                rabbit.style.backgroundColor = "springgreen"
-            return(givingPoint)
-    
-            }else{
-                currentPlayer = player[0]
-                gameTurn++
-                rabbit.style.backgroundColor = "yellow"
-                lion.style.backgroundColor = "springgreen"
-            return(givingPoint)                    
-            }            
-        }
-    
-        let rabbitPoint = 0;
-        let lionPoint = 0;
-
-
-
-        function givingPoint(){
-    
-            if (currentPlayer === player[0]){ 
-                const starPoint = document.createElement("img")     
-                starPoint.src = "star.png"
-                starPoint.setAttribute("id",'star-point')
-                const pointHolder = document.createElement("li")
-                rabbitList.appendChild(pointHolder)
-                pointHolder.appendChild(starPoint) 
-                    rabbitPoint ++
-            }else {
-                const heartPoint = document.createElement("img")
-                heartPoint.src = "heart.png" 
-                heartPoint.setAttribute("id",'heart-point')
-                lionList.appendChild(heartPoint)
-                    lionPoint ++     
-            }
-                return (winningCondition)
-        }
-
-
-        
-
-        function reset(){
-            location.reload()
-           
-        }
-
-
-
-        
-        function winningCondition(){
-            const winImg = document.createElement("img")
-            winImg.setAttribute('id','win-img')
-            const winTxt = document.createElement("h2")
-            winTxt.setAttribute('id','win-txt')
-            const resetButton = document.createElement("button")
-            resetButton.setAttribute('id','reset-button')
-            resetButton.type = resetButton
-            resetButton.innerText = 'Again!'
-            resetButton.addEventListener("click", reset)
-           
-
-            if (rabbitPoint < lionPoint){
-                winImg.src = "goodJob.png"
-                letterOptions.appendChild(winImg)
-                winTxt.innerText = "You are the Winner, Lion! 🦁   "
-                letterOptions.appendChild(winTxt)
-                letterOptions.appendChild(resetButton)
-                rabbit.style.backgroundColor = "yellow"
-                lion.style.backgroundColor = "yellow"
-                
-
-
-                
-            }else if (lionPoint < rabbitPoint){
-                winImg.src = "goodJob.png"
-                letterOptions.appendChild(winImg)
-                winTxt.innerText = "You are the Winner, Rabbit! 🐰   "
-                letterOptions.appendChild(winTxt)
-                letterOptions.appendChild(resetButton)
-                rabbit.style.backgroundColor = "yellow"
-                lion.style.backgroundColor = "yellow"
-            
-            }else{
-                winImg.src = "tie-img.jpg"
-                letterOptions.appendChild(winImg)
-                winTxt.innerText = "It's a tie! Let's play again!"
-                letterOptions.appendChild(winTxt)
-                letterOptions.appendChild(resetButton)
-                rabbit.style.backgroundColor = "yellow"
-                lion.style.backgroundColor = "yellow"
-            }
-        }
-    
+    // function hide(e){
+    //     e.currentTarget.style.visibility = 'hidden';
+    //     for(var i = 0; i < imgNameArray.length; i++)
+    //     letterOptions[i].addEventlistener('click', hide, false);
+    // }
 
 
 
 letterOptions.addEventListener("click", letterClicked)
   
     function letterClicked(event){
-                
+        console.log(event.target)
+        console.log(event.target.alt)
+        
+        
+        
         if(event.target.alt == imgNameArray[0]){
             console.log("yes!")
-            event.target.style.display = 'none' 
-            givingPoint()            
+            event.target.style.visibility = 'hidden' 
+            givingPoint()
+            currentPlayer = player[0]
             document.querySelector("img[alt='blankA']").src = event.target.src
             letterOptions.addEventListener('click', secondClicked)
-            letterOptions.removeEventListener('click', letterClicked)
+            // letterOptions.removeEventListener('click', letterClicked)
         }else{
-            
-             
+            currentPlayer = player[0]
+            console.log('nooo') 
         }        
     }
 
     function secondClicked(event){
         
         if(event.target.alt == imgNameArray[1]){
-            event.target.style.display = 'none'
-            givingPoint()
-               
-                
+            event.target.style.visibility = 'hidden'
+            givingPoint()    
+            currentPlayer = player[1]      
             document.querySelector("img[alt='blankB']").src = event.target.src  
             letterOptions.addEventListener('click', thirdClicked)
-            letterOptions.removeEventListener('click', secondClicked)
+            // letterOptions.removeEventListener('click', secondClicked)
         }else{
-            
-                   
+            currentPlayer = player[1]       
         }
     }
 
     function thirdClicked(event){
         
         if(event.target.alt == imgNameArray[2]){
-            event.target.style.display = 'none'
+            event.target.style.visibility = 'hidden'
             givingPoint()
-            
+            currentPlayer = player[0]
             document.querySelector("img[alt='blankC']").src = event.target.src            
                 if(imgNameArray.length>3){
                 letterOptions.addEventListener('click', fourthClicked)
-                letterOptions.removeEventListener('click', thirdClicked)
-                }else{
-                    winningCondition()
+                // letterOptions.removeEventListener('click', thirdClicked)
+                }else{console.log("make a winning condition")
             }   
         }else{
-            
+            currentPlayer = player[0]
         } 
         
     }
     function fourthClicked(event){
         if(event.target.alt == imgNameArray[3]){
-            event.target.style.display = 'none'
+            console.log("yes!")
+            event.target.style.visibility = 'hidden'
             givingPoint()
             document.querySelector("img[alt='blankD']").src = event.target.src
                 if(imgNameArray.length>4){
                 letterOptions.addEventListener('click', fifthClicked)
                 letterOptions.removeEventListener('click', fourthClicked)    
-                }else{
-                    winningCondition()
                 }      
         }else{
-             
+            console.log('nooo') 
         } 
         
     }
     function fifthClicked(event){
         if(event.target.alt == imgNameArray[4]){
-            event.target.style.display = 'none'
-            givingPoint()
-            document.querySelector("img[alt='blankE']").src = event.target.src
-                if(imgNameArray.length>5 ){
-                letterOptions.addEventListener('click', sixthClicked)
-                letterOptions.removeEventListener('click', fifthClicked)    
-                }else{
-                    winningCondition()
-                }      
-        }else{
-             
-        } 
-        
-    }
-    function sixthClicked(event){
-        if(event.target.alt == imgNameArray[5]){
-            event.target.style.display = 'none'
+            console.log("yes!")
+            event.target.style.visibility = 'hidden'
             givingPoint()            
-            document.querySelector("img[alt='blankF']").src = event.target.src
-            winningCondition()
+            document.querySelector("img[alt='blankE']").src = event.target.src
         }else{
-                       
+            console.log('nooo') 
+            currentPlayer = player[1]            
         }         
     }
- 
+
     
+startButton = document.querySelector('button')
 
+startButton.addEventListener("click", (e) => {
+    e.preventDefault()    
 
-
+})
     })
 
 

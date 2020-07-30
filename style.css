@@ -1,15 +1,17 @@
 body {
     background-color: yellow;
+    font-family: fantasy;
+    font-weight: bolder;
 }
 
 img {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
 
 }
 .img-display {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .game-elements {
     display: flex;
@@ -20,7 +22,10 @@ img {
 .letter-options {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: 25px;
+    background-color: yellow;
+    flex-wrap: wrap;
     
 }
 #showing-image {
@@ -29,19 +34,53 @@ img {
     width: 400px;
     height: 300px;
 }
+#rabbit-list {
+    display:flex;
+    order:1;
+    flex-direction: column;
+}
 
+#rabbit {
+    background-color: springgreen;
+    font-size: 20px;
+    
+}
+#lion {
+    font-size: 20px;
+}
+
+#lion-list {
+    display:flex;
+    order:3;
+    flex-direction: column;
+}
 #star-point {
-    display: flex;
-    order: 1;
-    width: 100px;
-    height: 100px;
+    
+    width: 80px;
+    height: 80px;
 }
 
 #heart-point {
-    display: flex;
-    order: 3;
-    width: 100px;
-    height: 100px;
+   
+    width: 80px;
+    height: 80px;
 }
+
+#reset-button{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 15px;
+    color: whitesmoke;
+    width: 70px;
+    height: 30px;
+    margin-left: 20px;
+    background-color: slateblue;
+}
+
+#win-img{
+    padding-right: 20px;
+}
+
 
 
