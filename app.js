@@ -314,9 +314,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 const starPoint = document.createElement("img")     
                 starPoint.src = "assets/star.png"
                 starPoint.setAttribute("id",'star-point')
-                const pointHolder = document.createElement("li")
-                rabbitList.appendChild(pointHolder)
-                pointHolder.appendChild(starPoint) 
+                rabbitList.appendChild(starPoint) 
                     rabbitPoint ++
             }else {
                 const heartPoint = document.createElement("img")
