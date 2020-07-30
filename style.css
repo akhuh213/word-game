@@ -16,7 +16,6 @@ img {
 .game-elements {
     display: flex;
     justify-content: space-evenly;
-    flex-wrap: wrap;
     margin-top: 20px;
 }
 .letter-options {
@@ -25,8 +24,14 @@ img {
     align-items: center;
     margin-top: 25px;
     background-color: yellow;
-    flex-wrap: wrap;
     
+}
+.win-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    background-color : seagreen
 }
 #showing-image {
     display: flex;

@@ -128,11 +128,12 @@ var imgNameArray = imgName.split('')
 
 
 
-    
+
+
+
 
 
 function displayImage(){
-    
     const word = allWords[currentIndex]
     showingImage.src = word.image
     showingImage.setAttribute('alt',word.word)
@@ -140,23 +141,43 @@ function displayImage(){
 }
 displayImage()
 
-function displayLetter(){
+
+function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
+}
+
+let optionLettersArray = []
+function compareLetter(){
 
 for (i=0; i< imgNameArray.length; i++){
     for (j=0; j< allLetters.length; j++){
         if(imgNameArray[i] == allLetters[j].letter){
             const currentLetter = allLetters[j];
-            const letterBlock = document.createElement("img")
-            letterBlock.src = currentLetter.image
-            letterBlock.setAttribute('alt',currentLetter.letter)
-            letterOptions.appendChild(letterBlock)
-            
-            break 
+            optionLettersArray.push(currentLetter)
+            shuffle(optionLettersArray)
+            break
         }
     }
 } 
 }
+
+compareLetter()
+
+
+
+
+
+function displayLetter(){
+    for(i=0; i<optionLettersArray.length; i++){
+        let randomLetter = optionLettersArray[i];
+        const letterBlock = document.createElement("img")
+        letterBlock.src = randomLetter.image
+        letterBlock.setAttribute('alt',randomLetter.letter)
+        letterOptions.appendChild(letterBlock)
+    }
+}
 displayLetter()
+
 
 
 function displayBlankBox(){
@@ -234,6 +255,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
         
         function winningCondition(){
+            const winContainer = document.querySelector(".win-message")
             const winImg = document.createElement("img")
             winImg.setAttribute('id','win-img')
             const winTxt = document.createElement("h2")
@@ -243,54 +265,63 @@ document.addEventListener('DOMContentLoaded', ()=> {
             resetButton.type = resetButton
             resetButton.innerText = 'Again!'
             resetButton.addEventListener("click", reset)
-           
+            
 
             if (rabbitPoint < lionPoint){
                 winImg.src = "goodJob.png"
-                letterOptions.appendChild(winImg)
+                winContainer.appendChild(winImg)
                 winTxt.innerText = "You are the Winner, Lion! 🦁   "
-                letterOptions.appendChild(winTxt)
-                letterOptions.appendChild(resetButton)
+                winContainer.appendChild(winTxt)
+                winContainer.appendChild(resetButton)
                 rabbit.style.backgroundColor = "yellow"
                 lion.style.backgroundColor = "yellow"
+                
                 
 
 
                 
             }else if (lionPoint < rabbitPoint){
                 winImg.src = "goodJob.png"
-                letterOptions.appendChild(winImg)
+                winContainer.appendChild(winImg)
                 winTxt.innerText = "You are the Winner, Rabbit! 🐰   "
-                letterOptions.appendChild(winTxt)
-                letterOptions.appendChild(resetButton)
+                winContainer.appendChild(winTxt)
+                winContainer.appendChild(resetButton)
                 rabbit.style.backgroundColor = "yellow"
                 lion.style.backgroundColor = "yellow"
+                
             
             }else{
                 winImg.src = "tie-img.jpg"
-                letterOptions.appendChild(winImg)
+                winContainer.appendChild(winImg)
                 winTxt.innerText = "It's a tie! Let's play again!"
-                letterOptions.appendChild(winTxt)
-                letterOptions.appendChild(resetButton)
+                winContainer.appendChild(winTxt)
+                winContainer.appendChild(resetButton)
                 rabbit.style.backgroundColor = "yellow"
                 lion.style.backgroundColor = "yellow"
+                
             }
         }
     
 
 
 
+ 
 letterOptions.addEventListener("click", letterClicked)
-  
+    shuffle(allLetters)
     function letterClicked(event){
-                
+        
+                 
         if(event.target.alt == imgNameArray[0]){
-            console.log("yes!")
-            event.target.style.display = 'none' 
-            givingPoint()            
+                        
+            givingPoint()         
             document.querySelector("img[alt='blankA']").src = event.target.src
             letterOptions.addEventListener('click', secondClicked)
             letterOptions.removeEventListener('click', letterClicked)
+            event.target.src = allLetters[0].image;
+            event.target.alt = allLetters[0].letter;
+            
+
+            
         }else{
             
              
@@ -300,13 +331,16 @@ letterOptions.addEventListener("click", letterClicked)
     function secondClicked(event){
         
         if(event.target.alt == imgNameArray[1]){
-            event.target.style.display = 'none'
+            
             givingPoint()
                
                 
             document.querySelector("img[alt='blankB']").src = event.target.src  
             letterOptions.addEventListener('click', thirdClicked)
             letterOptions.removeEventListener('click', secondClicked)
+            event.target.src = allLetters[1].image;
+            event.target.alt = allLetters[1].letter;
+            
         }else{
             
                    
@@ -316,14 +350,17 @@ letterOptions.addEventListener("click", letterClicked)
     function thirdClicked(event){
         
         if(event.target.alt == imgNameArray[2]){
-            event.target.style.display = 'none'
+            
             givingPoint()
             
             document.querySelector("img[alt='blankC']").src = event.target.src            
                 if(imgNameArray.length>3){
                 letterOptions.addEventListener('click', fourthClicked)
                 letterOptions.removeEventListener('click', thirdClicked)
+                event.target.src = allLetters[2].image;
+                event.target.alt = allLetters[2].letter;
                 }else{
+                    letterOptions.style.display = "none"
                     winningCondition()
             }   
         }else{
@@ -333,13 +370,16 @@ letterOptions.addEventListener("click", letterClicked)
     }
     function fourthClicked(event){
         if(event.target.alt == imgNameArray[3]){
-            event.target.style.display = 'none'
+            
             givingPoint()
             document.querySelector("img[alt='blankD']").src = event.target.src
                 if(imgNameArray.length>4){
                 letterOptions.addEventListener('click', fifthClicked)
-                letterOptions.removeEventListener('click', fourthClicked)    
+                letterOptions.removeEventListener('click', fourthClicked)
+                event.target.src = allLetters[3].image;   
+                event.target.alt = allLetters[3].letter; 
                 }else{
+                    letterOptions.style.display = "none"
                     winningCondition()
                 }      
         }else{
@@ -349,13 +389,16 @@ letterOptions.addEventListener("click", letterClicked)
     }
     function fifthClicked(event){
         if(event.target.alt == imgNameArray[4]){
-            event.target.style.display = 'none'
+            
             givingPoint()
             document.querySelector("img[alt='blankE']").src = event.target.src
                 if(imgNameArray.length>5 ){
                 letterOptions.addEventListener('click', sixthClicked)
-                letterOptions.removeEventListener('click', fifthClicked)    
+                letterOptions.removeEventListener('click', fifthClicked)
+                event.target.src = allLetters[4].image;
+                event.target.alt = allLetters[4].letter;    
                 }else{
+                    letterOptions.style.display = "none"
                     winningCondition()
                 }      
         }else{
