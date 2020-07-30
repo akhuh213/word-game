@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         let currentPlayer = null;
         
         function switchTurn() {
-            console.log(gameTurn)
+            
             if(gameTurn%2 == 0){
                 currentPlayer = player[1]
                 gameTurn++
