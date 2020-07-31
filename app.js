@@ -125,32 +125,35 @@ function displayImage(){
 displayImage()
 
 // for letter box displayed randomly, also replace the box with random letter box
-function shuffle(array) {
-    array.sort(() => Math.random() - 0.5);
-}
+
 
 //compare letter with splitted word, and put shuffle the letter box 
-let optionLettersArray = []
+let shuffleArray = []
 function compareLetter(){
 
 for (i=0; i< imgNameArray.length; i++){
     for (j=0; j< allLetters.length; j++){
         if(imgNameArray[i] == allLetters[j].letter){
             const currentLetter = allLetters[j];
-            optionLettersArray.push(currentLetter)
-            shuffle(optionLettersArray)
+            shuffleArray.push(currentLetter)
+            shuffle(shuffleArray)
             break
         }
     }
 } 
 }
-
 compareLetter()
+
+
+function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
+}
+
 
 // displaying letterbox from the shuffled array
 function displayLetter(){
-    for(i=0; i<optionLettersArray.length; i++){
-        let randomLetter = optionLettersArray[i];
+    for(i=0; i<shuffleArray.length; i++){
+        let randomLetter = shuffleArray[i];
         const letterBlock = document.createElement("img")
         letterBlock.src = randomLetter.image
         letterBlock.setAttribute('alt',randomLetter.letter)
@@ -210,168 +213,164 @@ letterOptions.addEventListener("click", letterClicked)
 
     function letterClicked(event){
                      
-            if(event.target.alt == imgNameArray[0]){
-                            
-                givingPoint()         
-                document.querySelector("img[alt='blankA']").src = event.target.src
-                letterOptions.addEventListener('click', secondClicked)
-                letterOptions.removeEventListener('click', letterClicked)
-                addLetter(allLetters[0])
-            }else{                
-            }        
+        if(event.target.alt == imgNameArray[0]){                            
+            givingPoint()         
+            document.querySelector("img[alt='blankA']").src = event.target.src
+            letterOptions.addEventListener('click', secondClicked)
+            letterOptions.removeEventListener('click', letterClicked)
+            addLetter(allLetters[0])
+        }else{                
+        }        
         }
 
-        function secondClicked(event){
+    function secondClicked(event){
             
-            if(event.target.alt == imgNameArray[1]){
-                
-                givingPoint()                
-                document.querySelector("img[alt='blankB']").src = event.target.src  
-                letterOptions.addEventListener('click', thirdClicked)
-                letterOptions.removeEventListener('click', secondClicked)
-                addLetter(allLetters[1])                 
+        if(event.target.alt == imgNameArray[1]){
+            givingPoint()                
+            document.querySelector("img[alt='blankB']").src = event.target.src  
+            letterOptions.addEventListener('click', thirdClicked)
+            letterOptions.removeEventListener('click', secondClicked)
+            addLetter(allLetters[1])                 
                             
-            }else{                       
-            }
+        }else{                       
+        }
         }
     
-        function thirdClicked(event){
+    function thirdClicked(event){
             
-            if(event.target.alt == imgNameArray[2]){
+        if(event.target.alt == imgNameArray[2]){
+            givingPoint()
+            document.querySelector("img[alt='blankC']").src = event.target.src            
                 
-                givingPoint()
-                document.querySelector("img[alt='blankC']").src = event.target.src            
-                
-                if(imgNameArray.length>3){
-                    letterOptions.addEventListener('click', fourthClicked)
-                    letterOptions.removeEventListener('click', thirdClicked)
-                    addLetter(allLetters[2])
-                }else{
-                    letterOptions.style.display = "none"
-                    winningCondition()
-                }   
-            }else{               
-            }             
-        }
-        function fourthClicked(event){
-            
-            if(event.target.alt == imgNameArray[3]){
-                
-                givingPoint()
-                document.querySelector("img[alt='blankD']").src = event.target.src
-                    
-                if(imgNameArray.length>4){
-                    letterOptions.addEventListener('click', fifthClicked)
-                    letterOptions.removeEventListener('click', fourthClicked)
-                    addLetter(allLetters[3]) 
-                }else{
-                    letterOptions.style.display = "none"
-                    winningCondition()
-                }      
+            if(imgNameArray.length>3){
+                letterOptions.addEventListener('click', fourthClicked)
+                letterOptions.removeEventListener('click', thirdClicked)
+                addLetter(allLetters[2])
             }else{
-                 
-            } 
-            
-        }
-        function fifthClicked(event){
-
-            if(event.target.alt == imgNameArray[4]){
-                
-                givingPoint()
-                document.querySelector("img[alt='blankE']").src = event.target.src
-                    
-                if(imgNameArray.length>5 ){
-                    letterOptions.addEventListener('click', sixthClicked)
-                    letterOptions.removeEventListener('click', fifthClicked)
-                    addLetter(allLetters[4])
-
-                }else{
-                    letterOptions.style.display = "none"
-                    winningCondition()
-                }      
-            }else{
-            } 
-        }
-        function sixthClicked(event){
-
-            if(event.target.alt == imgNameArray[5]){
-                event.target.style.display = 'none'
-                givingPoint()            
-                document.querySelector("img[alt='blankF']").src = event.target.src
                 letterOptions.style.display = "none"
                 winningCondition()
-
-            }else{                           
-            }         
+            }   
+        }else{               
+        }             
+                
         }
+    function fourthClicked(event){
+            
+        if(event.target.alt == imgNameArray[3]){
+            givingPoint()
+            document.querySelector("img[alt='blankD']").src = event.target.src
+                    
+            if(imgNameArray.length>4){
+                letterOptions.addEventListener('click', fifthClicked)
+                letterOptions.removeEventListener('click', fourthClicked)
+                addLetter(allLetters[3]) 
+            }else{
+                letterOptions.style.display = "none"
+                winningCondition()
+            }      
+        }else{
+                 
+        } 
+    }
+    function fifthClicked(event){
+
+        if(event.target.alt == imgNameArray[4]){
+            givingPoint()
+            document.querySelector("img[alt='blankE']").src = event.target.src
+                    
+            if(imgNameArray.length>5 ){
+                letterOptions.addEventListener('click', sixthClicked)
+                letterOptions.removeEventListener('click', fifthClicked)
+                addLetter(allLetters[4])
+
+            }else{
+                letterOptions.style.display = "none"
+                winningCondition()
+            }      
+        }else{
+        } 
+    }
+    function sixthClicked(event){
+    
+        if(event.target.alt == imgNameArray[5]){
+            event.target.style.display = 'none'
+            givingPoint()            
+            document.querySelector("img[alt='blankF']").src = event.target.src
+            letterOptions.style.display = "none"
+            winningCondition()
+
+        }else{                           
+        }         
+    }
 
         //point system
 
-        let rabbitPoint = 0;
-        let lionPoint = 0;
+    let rabbitPoint = 0;
+    let lionPoint = 0;
 
-        function givingPoint(){
+    function givingPoint(){
             
-            if (currentPlayer === player[0]){ 
-                const starPoint = document.createElement("img")     
-                starPoint.src = "assets/star.png"
-                starPoint.setAttribute("id",'star-point')
-                rabbitList.appendChild(starPoint) 
-                    rabbitPoint ++
-            }else {
-                const heartPoint = document.createElement("img")
-                heartPoint.src = "assets/heart.png" 
-                heartPoint.setAttribute("id",'heart-point')
-                lionList.appendChild(heartPoint)
-                    lionPoint ++     
-            }
+        if (currentPlayer === player[0]){ 
+            const starPoint = document.createElement("img")     
+            starPoint.src = "assets/star.png"
+            starPoint.setAttribute("id",'star-point')
+            rabbitList.appendChild(starPoint) 
+            rabbitPoint ++
+
+        }else {
+            const heartPoint = document.createElement("img")
+            heartPoint.src = "assets/heart.png" 
+            heartPoint.setAttribute("id",'heart-point')
+            lionList.appendChild(heartPoint)
+            lionPoint ++     
+        }
             return (winningCondition)
     
         }
 
-        function winMsg (msg,imgsrc){
-            const winContainer = document.querySelector(".win-message")
-            const winImg = document.createElement("img")
-            winImg.setAttribute('id','win-img')
+    function winMsg (msg,imgsrc){
+        const winContainer = document.querySelector(".win-message")
+        const winImg = document.createElement("img")
+        winImg.setAttribute('id','win-img')
             
-            const winTxt = document.createElement("h2")
-            winTxt.setAttribute('id','win-txt')
+        const winTxt = document.createElement("h2")
+        winTxt.setAttribute('id','win-txt')
             
-            const resetButton = document.createElement("button")
-            resetButton.setAttribute('id','reset-button')
-            resetButton.type = resetButton
-            resetButton.innerText = 'Again!'
-            resetButton.addEventListener("click", reset)
-            winImg.src = imgsrc
-            winContainer.appendChild(winImg)
-            winTxt.innerText = msg
-            winContainer.appendChild(winTxt)
-            winContainer.appendChild(resetButton)
+        const resetButton = document.createElement("button")
+        resetButton.setAttribute('id','reset-button')
+        resetButton.type = resetButton
+        resetButton.innerText = 'Again!'
+        resetButton.addEventListener("click", reset) 
+        
+        winImg.src = imgsrc
+        winContainer.appendChild(winImg)
+        winTxt.innerText = msg
+        winContainer.appendChild(winTxt)
+        winContainer.appendChild(resetButton)
             
-            rabbit.style.backgroundColor = "yellow"
-            lion.style.backgroundColor = "yellow"
-        }
+        rabbit.style.backgroundColor = "yellow"
+        lion.style.backgroundColor = "yellow"
+    }
 
 
-        //winning condition
-        function winningCondition(){
+    //winning condition
+    function winningCondition(){
 
+        if (rabbitPoint < lionPoint){
+            winMsg(" You are the winner, Lion! 🦁 ", "assets/goodjob.png")
 
-            if (rabbitPoint < lionPoint){
-                winMsg(" You are the winner, Lion! 🦁 ", "assets/goodjob.png")
-
-            }else if (lionPoint < rabbitPoint){
-                winMsg(" You are the winner, Rabbit! 🐰 ", "assets/goodjob.png")
+        }else if (lionPoint < rabbitPoint){
+            winMsg(" You are the winner, Rabbit! 🐰 ", "assets/goodjob.png")
             
-            }else{
-               winMsg("It's a tie! Let's try again!", "assets/tie-img.jpg")
+        }else{
+            winMsg("It's a tie! Let's try again!", "assets/tie-img.jpg")
                 
-            }
         }
+    }
         // reset when the button is clicked 
-        function reset(){
-            location.reload()   
-        }
+    function reset(){
+        location.reload()   
+    }
 })
 
 
