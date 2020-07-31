@@ -164,10 +164,10 @@ function displayBlankBox(){
     for (i=0; i< imgNameArray.length; i++){
         const currentBox = blank[i];
         const blankBox = document.createElement("img")
-            blankBox.src = currentBox.image
-            blankBox.setAttribute('alt',currentBox.name)
-            blankBox.setAttribute("id", 'blank-box')
-            gameElements.appendChild(blankBox)                    
+        blankBox.src = currentBox.image
+        blankBox.setAttribute('alt',currentBox.name)
+        blankBox.setAttribute("id", 'blank-box')
+        gameElements.appendChild(blankBox)                    
     }    
 }
 displayBlankBox()
@@ -176,31 +176,39 @@ document.addEventListener('DOMContentLoaded', ()=> {
     //switching turn 
     letterOptions.addEventListener("click", switchTurn)
     
-        let gameTurn = 1
-        let currentPlayer = null;
+    let gameTurn = 1
+    let currentPlayer = null;
         
-        function switchTurn() {
+    function switchTurn() {
             
-            if(gameTurn%2 == 0){
-                currentPlayer = player[1]
-                gameTurn++
-                lion.style.backgroundColor = "yellow"
-                rabbit.style.backgroundColor = "springgreen"
+        if(gameTurn%2 == 0){
+            currentPlayer = player[1]
+            gameTurn++
+            lion.style.backgroundColor = "yellow"
+            rabbit.style.backgroundColor = "springgreen"
             return(givingPoint)
     
-            }else{
-                currentPlayer = player[0]
-                gameTurn++
-                rabbit.style.backgroundColor = "yellow"
-                lion.style.backgroundColor = "springgreen"
+        }else{
+            currentPlayer = player[0]
+            gameTurn++
+            rabbit.style.backgroundColor = "yellow"
+            lion.style.backgroundColor = "springgreen"
             return(givingPoint)                    
             }            
         }
     
     // what to happen when the letter is clicked     
-    letterOptions.addEventListener("click", letterClicked)
-        shuffle(allLetters) //clicked right letter will be replaced with the random letter
-        function letterClicked(event){
+letterOptions.addEventListener("click", letterClicked)
+    
+    shuffle(allLetters) //clicked right letter will be replaced with the random letter
+    
+    function addLetter(letter){
+        event.target.src = letter.image;
+        event.target.alt = letter.letter;
+    }
+
+
+    function letterClicked(event){
                      
             if(event.target.alt == imgNameArray[0]){
                             
@@ -208,8 +216,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 document.querySelector("img[alt='blankA']").src = event.target.src
                 letterOptions.addEventListener('click', secondClicked)
                 letterOptions.removeEventListener('click', letterClicked)
-                event.target.src = allLetters[0].image;
-                event.target.alt = allLetters[0].letter;
+                addLetter(allLetters[0])
             }else{                
             }        
         }
@@ -222,8 +229,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 document.querySelector("img[alt='blankB']").src = event.target.src  
                 letterOptions.addEventListener('click', thirdClicked)
                 letterOptions.removeEventListener('click', secondClicked)
-                event.target.src = allLetters[1].image;
-                event.target.alt = allLetters[1].letter;                
+                addLetter(allLetters[1])                 
+                            
             }else{                       
             }
         }
@@ -238,8 +245,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 if(imgNameArray.length>3){
                     letterOptions.addEventListener('click', fourthClicked)
                     letterOptions.removeEventListener('click', thirdClicked)
-                    event.target.src = allLetters[2].image;
-                    event.target.alt = allLetters[2].letter;
+                    addLetter(allLetters[2])
                 }else{
                     letterOptions.style.display = "none"
                     winningCondition()
@@ -257,8 +263,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 if(imgNameArray.length>4){
                     letterOptions.addEventListener('click', fifthClicked)
                     letterOptions.removeEventListener('click', fourthClicked)
-                    event.target.src = allLetters[3].image;   
-                    event.target.alt = allLetters[3].letter; 
+                    addLetter(allLetters[3]) 
                 }else{
                     letterOptions.style.display = "none"
                     winningCondition()
@@ -278,8 +283,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 if(imgNameArray.length>5 ){
                     letterOptions.addEventListener('click', sixthClicked)
                     letterOptions.removeEventListener('click', fifthClicked)
-                    event.target.src = allLetters[4].image;
-                    event.target.alt = allLetters[4].letter;
+                    addLetter(allLetters[4])
 
                 }else{
                     letterOptions.style.display = "none"
@@ -325,10 +329,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
     
         }
 
-        //winning condition
-        function winningCondition(){
+        function winMsg (msg,imgsrc){
             const winContainer = document.querySelector(".win-message")
-            
             const winImg = document.createElement("img")
             winImg.setAttribute('id','win-img')
             
@@ -340,36 +342,29 @@ document.addEventListener('DOMContentLoaded', ()=> {
             resetButton.type = resetButton
             resetButton.innerText = 'Again!'
             resetButton.addEventListener("click", reset)
+            winImg.src = imgsrc
+            winContainer.appendChild(winImg)
+            winTxt.innerText = msg
+            winContainer.appendChild(winTxt)
+            winContainer.appendChild(resetButton)
             
+            rabbit.style.backgroundColor = "yellow"
+            lion.style.backgroundColor = "yellow"
+        }
+
+
+        //winning condition
+        function winningCondition(){
+
 
             if (rabbitPoint < lionPoint){
-                winImg.src = "assets/goodjob.png"
-                winContainer.appendChild(winImg)
-                winTxt.innerText = "Awsome! You are the Winner, Lion! 🦁"
-                winContainer.appendChild(winTxt)
-                winContainer.appendChild(resetButton)
-                rabbit.style.backgroundColor = "yellow"
-                lion.style.backgroundColor = "yellow"
-                
-                
+                winMsg(" You are the winner, Lion! 🦁 ", "assets/goodjob.png")
+
             }else if (lionPoint < rabbitPoint){
-                winImg.src = "assets/goodjob.png"
-                winContainer.appendChild(winImg)
-                winTxt.innerText = "Great Job! You are the Winner, Rabbit! 🐰"
-                winContainer.appendChild(winTxt)
-                winContainer.appendChild(resetButton)
-                rabbit.style.backgroundColor = "yellow"
-                lion.style.backgroundColor = "yellow"
-                
+                winMsg(" You are the winner, Rabbit! 🐰 ", "assets/goodjob.png")
             
             }else{
-                winImg.src = "assets/tie-img.jpg"
-                winContainer.appendChild(winImg)
-                winTxt.innerText = "It's a tie! Let's play again!"
-                winContainer.appendChild(winTxt)
-                winContainer.appendChild(resetButton)
-                rabbit.style.backgroundColor = "yellow"
-                lion.style.backgroundColor = "yellow"
+               winMsg("It's a tie! Let's try again!", "assets/tie-img.jpg")
                 
             }
         }
