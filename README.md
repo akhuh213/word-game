@@ -3,7 +3,7 @@
 
 
 ### Game description
-This is a spelling game designed for preschool to kidnergarthen aged children to help their learning of spelling and words. Two players will take turns after every click. An image of object will be desplayed with letter boxes that players can choose from. Players need to click the correct letter box for the first letter of the displayed image. If the image of object is "tree", the player need to click letter "t" from the letter-boxes. The letter-boxes will be desplayed in random order, and the clicked correct box will be shown in the blank box, and a new random letter box will be added to the letter options. If the player click the correct letter, the player will get the points, and next player take the turn. If any player gets the last letter correct, the game will be over, and whoever gets more points will be the winner of the game. 
+This is a spelling game designed for preschooler to kindergartener to improve spelling. Two players will take turns after each click. The image of object will be displayed with options of letter-boxes that players can choose. Players need to click the correct letter box for each letter of the displayed image. If the image of object is "tree", the player need to click the first letter "t" from the letter-boxes. If the player click the correct letter, the player will get the points, and next player need to click the next letter of the word. If any of players gets the last letter correct, the game will be over, and the player who gets more points will be the winner of the game.  
 
 ### Technology
  - html
@@ -33,7 +33,7 @@ displayImage()
 
 ##### 1. Compare letters
 
-Made an array by spliting the object word into each letter. Ran two for loops to find the match for each splitted letter with letter-box. Pushed matched letter boxes into a new array, and shuffeld them using shuffle function shown below. 
+Made a letter array by splitting the word. Ran two for loops to find the match for each split letter with letter-box. Pushed matched letter boxes into a new array, and shuffled them using shuffle function shown below.  
 
 ``` JavaScript
 
@@ -79,10 +79,10 @@ function displayLetter(){
 ```
 <br></br>
 ### When the letter-box is clicked 
-When the letter-box is clicked, need to check whether it is correct or not, and if it's correct answer, that letter box need to replace the blank box. Also, the letter box in the options need to be replaced with other random letter. 
+When the letter-box is clicked, it will check whether the correct box was clicked or not. If it is correct, that letter box will placed in the corresponding blank box. Also, the clicked letter box in the options will be replaced with other random letter. 
 
-As shown in the snippet below, when the first correct letter-box is clicked, the blank box.src is replaced with the clicked correct letter. For the random replacing letter, I used shuffle function again to shuffle whole letter boxes. I also changed
-event.target.alt so that the replaced letter also can be used as the correct letter when needed. Most important thing to add new random letter in the letter options was that the event.target.src need to be changed after eventlistener is removed. Otherwise, the correct letter box that is replaced with the blank box will also be changed to the random letter box. 
+As shown in the snippet below, when the first correct letter-box is clicked, the blank box.src is replaced with the clicked correct letter. For the random letter box, shuffle function was used again.
+event.target.alt is also changed so that the replaced random letter can be used as the correct letter when needed. Most important thing to add new random letter was that the event.target.src has to be changed after eventlistener is removed. Otherwise, the correct letter box that is replaced with the blank box will also be changed to the random letter box. 
 
 
 ```JavaScript
@@ -105,8 +105,9 @@ event.target.alt so that the replaced letter also can be used as the correct let
 <br></br>
 ### Winning condition 
 
-Because the minimun number of letters in the word lists are 3, from thrid letter, need to check if there are more letters left. If this was the last letter, call the winningCondition function to end the game. Otherwise, go to next click. 
-When the game is over, I set the style of letter option container as "none" to display the result message in the same place. 
+Because all words in this game has at least 3 letters, number of left letters are checked after third letter got right.  
+If the last letter was clicked, call the winningCondition function to end the game. 
+When the game is over, set the style of letter option container as “none”, and displayed the result message in the same place. 
 
 ``` JavaScript
         function thirdClicked(event){
@@ -129,7 +130,7 @@ When the game is over, I set the style of letter option container as "none" to d
             }             
         }
 ```
-For winning condition, I simply compared the points they recieved between two players using if statement. 
+For winning condition, the points that each player recieved were compared.  
 
 
 
